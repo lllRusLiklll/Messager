@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+ 
+{% block content %}
+    <h1>Кабинет, {{ username }}</h1>
+    <br>
+    <ul class="nav nav-pills nav-fill">
+        <li class="nav-item">
+            <a class="nav-link active" href="/add_message">Отправить сообщение</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/inbox">Входящие</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/outbox">Исходящие</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/logout">Выход</a>
+        </li>
+    </ul>
+    <br>
+    <p>
+        Имя: {{ user[1] }}<br>
+        Фамилия: {{ user[2] }}<br>
+        Email: {{ user[5]  }}<br>
+        Age: {{ user[4] }}<br>
+    </p>
+{% endblock %}

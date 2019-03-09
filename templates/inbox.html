@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Входящие</h1>
+    {% for item in messages[::-1] %}
+        <div class="alert alert-dark" role="alert">
+            <h2>Тема: {{ item[1] }}</h2>
+            <h3>От: {{ item[3] }}</h3>
+            <div>{{ item[2] }}</div>
+            <a href="/add_message/{{ item[3] }}">Ответить</a>
+            <a href="/delete_inbox/{{ item[0] }}">Удалить сообщение</a>
+        </div>
+    {% endfor %}
+{% endblock %}
