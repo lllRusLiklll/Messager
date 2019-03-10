@@ -8,4 +8,4 @@ class AddMessageForm(FlaskForm):
     content = TextAreaField('Сообщение', validators=[DataRequired()])
     recipient = StringField('Получатель', validators=[DataRequired()])
     file = FileField('Добавить файл')
-    submit = SubmitField('Добавить')
+    submit = SubmitField('Отправить')

@@ -91,7 +91,7 @@ class InboxMessageModel:
 
     def get(self, message_id):
         cursor = self.connection.cursor()
-        cursor.execute("SELECT * FROM inbox_messages WHERE id = ?", (str(message_id)))
+        cursor.execute("SELECT * FROM inbox_messages WHERE id = ?", (str(message_id), ))
         row = cursor.fetchone()
         return row
 
@@ -110,16 +110,17 @@ class InboxMessageModel:
 
     def delete(self, message_id):
         cursor = self.connection.cursor()
-        cursor.execute('''DELETE FROM inbox_messages WHERE id = ?''', (str(message_id)))
+        cursor.execute('''DELETE FROM inbox_messages WHERE id = ?''', (str(message_id), ))
         cursor.close()
         self.connection.commit()
 
-    def exist(self, message_id):
+    def update(self, message_id, title, content):
         cursor = self.connection.cursor()
-        cursor.execute("SELECT * FROM users WHERE user_name = ?",
-                       (message_id,))
-        row = cursor.fetchone()
-        return (True,) if row else (False,)
+        cursor.execute('''UPDATE inbox_messages
+                            SET content = ?, title = ?
+                            WHERE id = ?''', (content, title, str(message_id)))
+        cursor.close()
+        self.connection.commit()
 
 
 class OutboxMessageModel:
@@ -148,7 +149,7 @@ class OutboxMessageModel:
 
     def get(self, message_id):
         cursor = self.connection.cursor()
-        cursor.execute("SELECT * FROM outbox_messages WHERE id = ?", (str(message_id)))
+        cursor.execute("SELECT * FROM outbox_messages WHERE id = ?", (str(message_id), ))
         row = cursor.fetchone()
         return row
 
@@ -167,6 +168,14 @@ class OutboxMessageModel:
 
     def delete(self, message_id):
         cursor = self.connection.cursor()
-        cursor.execute('''DELETE FROM outbox_messages WHERE id = ?''', (str(message_id)))
+        cursor.execute('''DELETE FROM outbox_messages WHERE id = ?''', (str(message_id), ))
+        cursor.close()
+        self.connection.commit()
+
+    def update(self, message_id, title, content):
+        cursor = self.connection.cursor()
+        cursor.execute('''UPDATE outbox_messages
+                            SET content = ?, title = ?
+                            WHERE id = ?''', (content, title, str(message_id)))
         cursor.close()
         self.connection.commit()

@@ -1,6 +1,15 @@
 {% extends "base.html" %}
  
 {% block content %}
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        {% for message in messages %}
+          <div class="alert alert-success" role="alert">
+            {{ message }}
+          </div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
     <h1>Кабинет, {{ username }}</h1>
     <br>
     <ul class="nav nav-pills nav-fill">

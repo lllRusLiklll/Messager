@@ -1,14 +1,35 @@
 {% extends "base.html" %}
 
 {% block content %}
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        {% for message in messages %}
+          <div class="alert alert-success" role="alert">
+            {{ message }}
+          </div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
     <h1>Входящие</h1>
-    {% for item in messages[::-1] %}
-        <div class="alert alert-dark" role="alert">
-            <h2>Тема: {{ item[1] }}</h2>
-            <h3>От: {{ item[3] }}</h3>
-            <div>{{ item[2] }}</div>
-            <a href="/add_message/{{ item[3] }}">Ответить</a>
-            <a href="/delete_inbox/{{ item[0] }}">Удалить сообщение</a>
+    {% if mesages %}
+        {% for item in mesages[::-1] %}
+            <div class="alert alert-dark" role="alert">
+                <h2>Тема: {{ item[1] }}</h2>
+                <h3>От: {{ item[3] }}</h3>
+                <div>{{ item[2] }}</div>
+                <ul class="nav nav-pills nav-fill">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/add_message/{{ item[3] }}">Ответить</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/delete_inbox/{{ item[0] }}">Удалить сообщение</a>
+                    </li>
+                </ul>
+            </div>
+        {% endfor %}
+    {% else %}
+        <div class="alert alert-warning" role="alert">
+            Здесь пока нет сообщений
         </div>
-    {% endfor %}
+    {% endif %}
 {% endblock %}
