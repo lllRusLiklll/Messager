@@ -5,13 +5,11 @@ from add_message import *
 from registerform import *
 from answerform import *
 from updateform import *
-from werkzeug.utils import secure_filename
-from werkzeug.security import generate_password_hash
 
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'EYokE5GbbNJkL'
-app.config['UPLOAD_FOLDER'] = '/static/files'
+# app.config['UPLOAD_FOLDER'] = '/static/files'
 
 db = DB()
 
